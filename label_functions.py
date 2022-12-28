@@ -2,23 +2,22 @@
 """
 Created on Sun Dec 25 19:56:38 2022
 
-@author: David
+@author: Dave
 """
 
 import os
 import json
 
 
-
-def check_keys(path):
-    # Open json file outputted by Megadetector and display keys    
+# Open json file outputted by Megadetector and display keys
+def check_keys(path):  
     with open(path, encoding='utf-8') as json_file:
         train_annotations =json.load(json_file)
     return train_annotations.keys()
 
 
+# Creation of label files in YOLOv5 format from Megadetector json
 def create_label_files(annotations, output_path):
-    # Creation of label files in YOLOv5 format from Megadetector json
     for i in range(len(annotations['images'])):
         id = annotations['images'][i]['file'][:-4]
 
@@ -35,8 +34,8 @@ def create_label_files(annotations, output_path):
             print(f'{id} ignored.')
 
 
+# Transformation from Megadetector to YOLOv5 coordinates
 def transform_coordinates(directory):
-    # Transformation from Megadetector to YOLOv5 coordinates
     for filename in os.listdir(directory):
         if filename.endswith('.txt'):
             # Open the file and read its contents
